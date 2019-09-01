@@ -15,6 +15,7 @@ MODE_AI = 2
 game_mode = 0
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("comicsansms",30)
+
 def make_relative((a, b)):
     return (a-200)/200, (b-200)/200
 
