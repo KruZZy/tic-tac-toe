@@ -1,22 +1,14 @@
 import pygame
-import datetime
+import time
+import random
 from pygame.locals import *
-from buttons import Button, font, sound
+from utils import *
+from buttons import *
+import ai
+
 pygame.init()
-white = (255, 255, 255)
-green_active = (114, 207, 56)
-green_inactive = (68, 148, 18)
-red_active = (201, 68, 58)
-red_inactive = (150, 18, 9)
 
-buttons = []
-MODE_VS = 1
-MODE_AI = 2
 game_mode = 0
-screen = pygame.display.set_mode([1000, 1000])
-
-def make_relative((a, b)):
-    return (a-200)/200, (b-200)/200
 
 class Board:
     grid = []
@@ -50,7 +42,9 @@ class Board:
         pygame.display.flip()
 
     def check(self):
-        (row, col) = make_relative(pygame.mouse.get_pos())
+
+        (row, col) = pygame.mouse.get_pos()
+        (row, col) = make_relative(row, col)
 
         if row < 0 or row > 2 or col < 0 or col > 2:
             return
@@ -74,6 +68,8 @@ class Board:
         self.check_win(last_player)
 
     def has_won(self, whom):
+        self.show()
+        time.sleep(2)
         self.scores[whom] += 1
         self.reset()
 
@@ -84,6 +80,23 @@ class Board:
         if wins(self.grid, player):
             return self.has_won(player)
 
+done = False
+intro = True
+game_board = Board()
+
+buttons = []
+
+buttons.append(Button("vs player", 175, 800, 150, 200, green_active, green_inactive, lambda: start_game(MODE_VS)))
+buttons.append(Button("vs computer (hard)", 375, 800, 150, 200, red_active, red_inactive, lambda: start_game(MODE_AI)))
+buttons.append(Button("vs computer (normal)", 575, 800, 150, 200, orange_active, orange_inactive, lambda: start_game(MODE_AI_N)))
+
+def start_game(mode):
+    global intro, game_mode
+    intro = False
+    game_mode = mode
+    game_board.reset()
+    game_board.show()
+
 def draw_intro():
     text = font.render("Select game mode", True, white)
     screen.blit(text, (350, 400))
@@ -93,104 +106,15 @@ def draw_intro():
 
     pygame.display.flip()
 
-def start_game():
-    global game_board
-    game_board.reset()
-    game_board.show()
-
-def mode_vs():
-    global game_mode, intro
-    intro = False
-    game_mode = MODE_VS
-    start_game()
-
-def mode_ai():
-    global game_mode, intro
-    intro = False
-    game_mode = MODE_AI
-    print("mode_ai")
-    start_game()
-
-def wins(grid, player):
-    win_grids = [
-        [grid[0][0], grid[0][1], grid[0][2]],
-        [grid[1][0], grid[1][1], grid[1][2]],
-        [grid[2][0], grid[2][1], grid[2][2]],
-        [grid[0][0], grid[1][0], grid[2][0]],
-        [grid[0][1], grid[1][1], grid[2][1]],
-        [grid[0][2], grid[1][2], grid[2][2]],
-        [grid[0][0], grid[1][1], grid[2][2]],
-        [grid[2][0], grid[1][1], grid[0][2]],
-    ]
-    return [player, player, player] in win_grids
-
-def empty_cells(grid):
-    empty = []
-
-    for i, row in enumerate(grid):
-        for j, col in enumerate(row):
-            if col == None:
-                empty.append([i, j])
-    return empty
-
-def evaluate(grid):
-    if wins(grid, 'X'):
-        return -10
-    if wins(grid, '0'):
-        return 10
-    else:
-        return 0
-
-def is_over(grid):
-    return wins(grid, 'X') or wins(grid, 'O')
-
-def minimax(grid, depth, maximise):
-    if depth == 0 or is_over(grid):
-        return [evaluate(grid), -1, -1]
-
-    if maximise:
-        best = [-1000, -1, -1]
-    else:
-        best = [1000, -1, -1]
-
-    for c in empty_cells(grid):
-        i, j = c[0], c[1]
-        grid[i][j] = '0' if maximise else 'X'
-        score = minimax(grid, depth-1, False if maximise else True)
-        grid[i][j] = None
-        score[1], score[2] = i, j
-
-        if maximise:
-            if score[0] > best[0]:
-                best = score
-        else:
-            if score[0] < best[0]:
-                best = score
-
-    return best
-
-def best_ai_move():
-    global game_board
-    max_depth = len(empty_cells(game_board.grid))
-    best = minimax(game_board.grid, max_depth, True)
-    game_board.make_move(best[1], best[2])
-
-
-done = False
-intro = True
-game_board = Board()
-buttons.append(Button("vs player", 300, 800, 150, 200, green_active, green_inactive, mode_vs))
-buttons.append(Button("vs computer", 500, 800, 150, 200, red_active, red_inactive, mode_ai))
-
 while not done:
     for e in pygame.event.get():
         if e.type is QUIT:
             done = True
         elif e.type is MOUSEBUTTONUP and intro == False:
-            if game_mode == MODE_VS or game_mode == MODE_AI and game_board.player == 'X':
+            if game_mode == MODE_VS or game_board.player == 'X':
                 game_board.check()
-    if game_mode == MODE_AI and game_board.player == '0':
-        best_ai_move()
+    if game_mode != MODE_VS and game_board.player == '0':
+        ai.move(game_board, game_mode)
 
     if intro:
         draw_intro()
