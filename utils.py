@@ -2,7 +2,11 @@ import pygame
 
 pygame.init()
 
-screen = pygame.display.set_mode([1000, 1000])
+screenInfo = pygame.display.Info()
+
+game_w = screenInfo.current_w//2
+game_h = screenInfo.current_h//2
+screen = pygame.display.set_mode([game_w, game_h])
 font = pygame.font.SysFont("comicsansms",20)
 
 white = (255, 255, 255)
@@ -20,7 +24,7 @@ MODE_AI_N = 3
 
 
 def make_relative(a, b):
-    return (a-200)//200, (b-200)//200
+    return int((a-.2 * game_w)//(.2 * game_w)), int((b-.2 * game_h)//(.2 * game_h))
 
 def wins(grid, player):
     win_grids = [
