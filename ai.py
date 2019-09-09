@@ -27,10 +27,7 @@ def minimax(grid, depth, player):
     if depth == 0 or is_over(grid):
         return [evaluate(grid), -1, -1]
 
-    if player == COMP:
-        best = [-1000, -1, -1]
-    else:
-        best = [1000, -1, -1]
+    best = [-10000, -1, -1] if player == COMP else [10000, -1, -1]
 
     for c in empty_cells(grid):
         i, j = c[0], c[1]
@@ -57,6 +54,5 @@ def move(board, mode):
     board.make_move(move[0], move[1])
 
 def best_move(grid):
-    max_depth = len(empty_cells(grid))
-    best = minimax(grid, max_depth, COMP)
+    best = minimax(grid, len(empty_cells(grid)), COMP)
     return (best[1], best[2])

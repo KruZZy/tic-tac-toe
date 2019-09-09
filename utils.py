@@ -4,8 +4,8 @@ pygame.init()
 
 screenInfo = pygame.display.Info()
 
-game_w = screenInfo.current_w//2
-game_h = screenInfo.current_h//2
+game_w = int(screenInfo.current_w//1.5)
+game_h = int(screenInfo.current_h//1.5)
 screen = pygame.display.set_mode([game_w, game_h])
 font = pygame.font.SysFont("comicsansms",20)
 
@@ -16,7 +16,8 @@ red_active = (201, 68, 58)
 red_inactive = (150, 18, 9)
 orange_active = (232, 192, 63)
 orange_inactive = (168, 138, 40)
-
+blue = (60, 127, 185)
+yellow = (239, 235, 100)
 
 MODE_VS = 1
 MODE_AI = 2

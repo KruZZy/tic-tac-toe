@@ -57,10 +57,10 @@ class Board:
     def make_move(self, row, col):
         centerX, centerY = int(.1 * game_w + row*(.2 * game_w)), int(.1 * game_h + col*(.2 * game_h))
         if self.player == 'X':
-            pygame.draw.line(self.board, white, [centerX-.05*game_w, centerY-.05*game_h], [centerX+.05*game_w, centerY+.05*game_h], 3)
-            pygame.draw.line(self.board, white, [centerX+.05*game_w, centerY-.05*game_h], [centerX-.05*game_w, centerY+.05*game_h], 3)
+            pygame.draw.line(self.board, yellow, [centerX-.05*game_w, centerY-.05*game_h], [centerX+.05*game_w, centerY+.05*game_h], 3)
+            pygame.draw.line(self.board, yellow, [centerX+.05*game_w, centerY-.05*game_h], [centerX-.05*game_w, centerY+.05*game_h], 3)
         else:
-            pygame.draw.circle(self.board, white, [centerX, centerY], int(.05*game_w), 3)
+            pygame.draw.circle(self.board, blue, [centerX, centerY], int(.05*game_w), 3)
         sound.play()
         self.grid[row][col] = self.player
         self.remaining -= 1
