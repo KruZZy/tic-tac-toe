@@ -4,8 +4,8 @@ COMP = 1
 HUMA = -1
 DEFAULT_MAX = -10000 # default value when maximising
 DEFAULT_MIN = 10000 # default value when minimising
-WIN = 10
-LOSE = -10
+WIN = 10 # win modifier
+LOSE = -10 # lose modifier
 def empty_cells(grid):
     empty = []
 

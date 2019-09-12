@@ -11,11 +11,8 @@ pygame.init()
 game_mode = 0
 
 class Board:
-    grid = []
     scores = {'X': 0, '0': 0, 'tie': 0}
     player = 'X'
-    remaining = 9
-    is_drawn = False
 
     def __init__(self):
         self.font = pygame.font.SysFont("comicsansms",20)
@@ -34,8 +31,6 @@ class Board:
         self.grid = [[None, None, None], [None, None, None], [None, None, None]]
         self.text = self.font.render("Player X: %d    Player O: %d    Ties: %d" % (self.scores['X'], self.scores['0'], self.scores['tie']), True, white)
         self.player = 'X'
-        self.remaining = 9
-        self.is_drawn = True
 
     def show(self):
         screen.fill((0, 0, 0))
@@ -87,7 +82,6 @@ intro = True
 game_board = Board()
 
 buttons = []
-
 buttons.append(Button("vs player", .175 * game_w, .8 * game_h, .175 * game_w, .2 * game_h, green_active, green_inactive, lambda: start_game(MODE_VS)))
 buttons.append(Button("vs computer (hard)", .4 * game_w, .8 * game_h, .175 * game_w, .2 * game_h, red_active, red_inactive, lambda: start_game(MODE_AI)))
 buttons.append(Button("vs computer (normal)", .625 * game_w, .8 * game_h, .175 * game_w, .2 * game_h, orange_active, orange_inactive, lambda: start_game(MODE_AI_N)))
