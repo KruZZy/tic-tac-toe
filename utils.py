@@ -4,8 +4,8 @@ pygame.init()
 
 screenInfo = pygame.display.Info()
 
-game_w = int(screenInfo.current_w//1.5)
-game_h = int(screenInfo.current_h//1.5)
+game_w = screenInfo.current_w
+game_h = screenInfo.current_h
 screen = pygame.display.set_mode([game_w, game_h])
 font = pygame.font.SysFont("comicsansms",20)
 
