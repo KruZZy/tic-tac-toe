@@ -58,7 +58,6 @@ class Board:
             pygame.draw.circle(self.board, blue, [centerX, centerY], int(.05*game_w), 3)
         sound.play()
         self.grid[row][col] = self.player
-        self.remaining -= 1
 
         last_player = self.player
         self.player = 'X' if self.player == '0' else '0'
