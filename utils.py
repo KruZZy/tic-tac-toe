@@ -23,7 +23,6 @@ MODE_VS = 1
 MODE_AI = 2
 MODE_AI_N = 3
 
-
 def make_relative(a, b):
     return int((a-.2 * game_w)//(.2 * game_w)), int((b-.2 * game_h)//(.2 * game_h))
 

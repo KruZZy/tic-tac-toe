@@ -31,6 +31,7 @@ class Board:
         self.grid = [[None, None, None], [None, None, None], [None, None, None]]
         self.text = self.font.render("Player X: %d    Player O: %d    Ties: %d" % (self.scores['X'], self.scores['0'], self.scores['tie']), True, white)
         self.player = 'X'
+        self.remaining = 9
 
     def show(self):
         screen.fill((0, 0, 0))
@@ -58,7 +59,8 @@ class Board:
             pygame.draw.circle(self.board, blue, [centerX, centerY], int(.05*game_w), 3)
         sound.play()
         self.grid[row][col] = self.player
-
+        self.remaining -= 1
+        
         last_player = self.player
         self.player = 'X' if self.player == '0' else '0'
         self.check_win(last_player)
