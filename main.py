@@ -15,7 +15,6 @@ class Board:
     player = 'X'
 
     def __init__(self):
-        self.font = pygame.font.SysFont("comicsansms",20)
         pygame.display.set_caption("X si 0")
 
     def reset(self):
@@ -29,8 +28,9 @@ class Board:
         pygame.draw.line(self.board, white, [0, h/3], [w, h/3], 5)
         pygame.draw.line(self.board, white, [0, 2*h/3], [w, 2*h/3], 5)
         self.grid = [[None, None, None], [None, None, None], [None, None, None]]
-        self.text = self.font.render("Jucatorul X: %d    Jucatorul O: %d    Egal: %d" % (self.scores['X'], self.scores['0'], self.scores['tie']), True, white)
+        self.text = font.render("Jucatorul X: %d    Jucatorul O: %d    Egal: %d" % (self.scores['X'], self.scores['0'], self.scores['tie']), True, white)
         self.player = 'X'
+        self.remaining = 9
 
     def show(self):
         screen.fill((0, 0, 0))
@@ -94,8 +94,8 @@ def start_game(mode):
     game_board.show()
 
 def draw_intro():
-    text = font.render("Alege modul de joc", True, white)
-    screen.blit(text, (.35 * game_w, .4 * game_h))
+    text = font.render("Alege modul de joc", False, white)
+    screen.blit(text, (.37 * game_w, .4 * game_h))
 
     for button in buttons:
         button.draw(screen)

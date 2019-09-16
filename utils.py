@@ -7,7 +7,7 @@ screenInfo = pygame.display.Info()
 game_w = min(screenInfo.current_w, screenInfo.current_h)
 game_h = game_w
 screen = pygame.display.set_mode([game_w, game_h])
-font = pygame.font.SysFont("comicsansms",20)
+font = pygame.font.SysFont("bookman",40)
 
 white = (255, 255, 255)
 green_active = (114, 207, 56)

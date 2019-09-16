@@ -4,7 +4,7 @@ pygame.init()
 white = (255, 255, 255)
 sound = pygame.mixer.Sound("hover.wav")
 
-font = pygame.font.SysFont("comicsansms",30)
+font = pygame.font.SysFont("helvetica",30)
 
 def text_obj(text, font):
     text_surf = font.render(text, True, white)
