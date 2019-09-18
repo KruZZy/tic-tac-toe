@@ -82,9 +82,9 @@ intro = True
 game_board = Board()
 
 buttons = []
-buttons.append(Button("vs jucator", .175 * game_w, .8 * game_h, .175 * game_w, .2 * game_h, green_active, green_inactive, lambda: start_game(MODE_VS)))
-buttons.append(Button("vs computer (greu)", .4 * game_w, .8 * game_h, .175 * game_w, .2 * game_h, red_active, red_inactive, lambda: start_game(MODE_AI)))
-buttons.append(Button("vs computer (normal)", .625 * game_w, .8 * game_h, .175 * game_w, .2 * game_h, orange_active, orange_inactive, lambda: start_game(MODE_AI_N)))
+buttons.append(Button("vs jucator", .175 * game_w, .8 * game_h, .2 * game_w, .2 * game_h, green_active, green_inactive, lambda: start_game(MODE_VS)))
+buttons.append(Button("vs computer (greu)", .400 * game_w, .8 * game_h, .2 * game_w, .2 * game_h, red_active, red_inactive, lambda: start_game(MODE_AI)))
+buttons.append(Button("vs computer (usor)", .625 * game_w, .8 * game_h, .2 * game_w, .2 * game_h, orange_active, orange_inactive, lambda: start_game(MODE_AI_N)))
 
 def start_game(mode):
     global intro, game_mode
