@@ -1,4 +1,5 @@
 from utils import wins, MODE_VS, MODE_AI, MODE_AI_N
+import random
 
 COMP = 1
 HUMA = -1
