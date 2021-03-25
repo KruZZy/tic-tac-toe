@@ -60,7 +60,7 @@ class Board:
         sound.play()
         self.grid[row][col] = self.player
         self.remaining -= 1
-        
+
         last_player = self.player
         self.player = 'X' if self.player == '0' else '0'
         self.check_win(last_player)
@@ -105,9 +105,9 @@ def draw_intro():
 
 while not done:
     for e in pygame.event.get():
-        if e.type is QUIT:
+        if e.type == QUIT:
             done = True
-        elif e.type is MOUSEBUTTONUP and intro == False:
+        elif e.type == MOUSEBUTTONUP and intro == False:
             if game_mode == MODE_VS or game_board.player == 'X':
                 game_board.check()
     if game_mode != MODE_VS and game_board.player == '0':
